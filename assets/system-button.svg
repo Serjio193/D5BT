@@ -1,29 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" role="img" aria-label="Configurable controller system button" data-kind="system" data-state="idle" style="--fill:#20252d;--edge:#596273;--icon:#f3f6fa;--glow:#765fff;--error:#ff3b30;--scale:1;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" role="img" aria-label="Configurable controller system button" data-kind="system" data-shape="rounded" data-state="idle" style="--fill:#20252d;--edge:#596273;--icon:#f3f6fa;--glow:#765fff;--error:#ff3b30;--scale:1;">
 <defs>
-  <radialGradient id="face" cx="35%" cy="25%" r="80%"><stop offset="0" stop-color="#fff" stop-opacity=".15"/><stop offset=".5" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></radialGradient>
-  <filter id="shadow" x="-40%" y="-60%" width="180%" height="220%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".55"/></filter>
-  <filter id="glow" x="-80%" y="-100%" width="260%" height="300%"><feGaussianBlur stdDeviation="3.3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <radialGradient id="face" cx="35%" cy="25%" r="80%"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".52" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></radialGradient>
+  <filter id="shadow" x="-45%" y="-70%" width="190%" height="240%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".55"/></filter>
+  <filter id="glow" x="-90%" y="-120%" width="280%" height="340%"><feGaussianBlur stdDeviation="3.3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   <style>
-    #button{transform-origin:60px 40px;transform:scale(var(--scale));transition:transform .06s,filter .08s}.shape{fill:var(--fill);stroke:var(--edge);stroke-width:3}.shine{fill:url(#face);pointer-events:none}.icon{display:none;fill:none;stroke:var(--icon);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.dotfill{fill:var(--icon);stroke:none}.txt{display:none;fill:var(--icon);font:800 18px Arial,sans-serif;text-anchor:middle;dominant-baseline:central;letter-spacing:.5px}
-    svg[data-kind="system"] #i-system,svg[data-kind="guide"] #i-guide,svg[data-kind="mute"] #i-mute,svg[data-kind="share"] #i-share,svg[data-kind="options"] #i-options{display:block}
+    #button{transform-origin:60px 40px;transform:scale(var(--scale));transition:transform .06s,filter .08s}.shape,.shine{display:none}.shape{fill:var(--fill);stroke:var(--edge);stroke-width:3}.shine{fill:url(#face);pointer-events:none}.icon{display:none;fill:none;stroke:var(--icon);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.dotfill{fill:var(--icon);stroke:none}
+    svg[data-shape="circle"] .circleShape,svg[data-shape="circle"] .circleShine,svg[data-shape="small"] .smallShape,svg[data-shape="small"] .smallShine,svg[data-shape="pill"] .pillShape,svg[data-shape="pill"] .pillShine,svg[data-shape="rounded"] .roundShape,svg[data-shape="rounded"] .roundShine{display:block}
+    svg[data-kind="system"] #i-system,svg[data-kind="guide"] #i-guide,svg[data-kind="mute"] #i-mute,svg[data-kind="share"] #i-share,svg[data-kind="options"] #i-options,svg[data-kind="plus"] #i-plus,svg[data-kind="minus"] #i-minus,svg[data-kind="capture"] #i-capture{display:block}
     svg[data-state="pressed"] #button{transform:scale(.9);filter:url(#glow)}svg[data-state="pressed"] .shape{stroke:var(--glow)}
-    svg[data-state="error"] #button{filter:url(#glow)}svg[data-state="error"] .shape{stroke:var(--error)}svg[data-state="error"] .icon,svg[data-state="error"] .txt{stroke:var(--error);fill:none}svg[data-state="error"] .dotfill{fill:var(--error)}
+    svg[data-state="error"] #button{filter:url(#glow)}svg[data-state="error"] .shape{stroke:var(--error)}svg[data-state="error"] .icon{stroke:var(--error)}svg[data-state="error"] .dotfill{fill:var(--error)}
   </style>
 </defs>
 <g id="button" filter="url(#shadow)">
-  <rect class="shape" x="12" y="10" width="96" height="60" rx="22"/>
-  <rect class="shine" x="15" y="13" width="90" height="54" rx="19"/>
-  <g id="i-system" class="icon"><circle cx="60" cy="40" r="14"/><circle class="dotfill" cx="60" cy="40" r="4"/></g>
-  <g id="i-guide" class="icon"><circle cx="60" cy="40" r="15"/><path d="M51 40h18M60 31v18"/></g>
+  <circle class="shape circleShape" cx="60" cy="40" r="31"/><circle class="shine circleShine" cx="60" cy="40" r="27"/>
+  <circle class="shape smallShape" cx="60" cy="40" r="22"/><circle class="shine smallShine" cx="60" cy="40" r="18"/>
+  <rect class="shape pillShape" x="15" y="20" width="90" height="40" rx="20"/><rect class="shine pillShine" x="19" y="24" width="82" height="32" rx="16"/>
+  <rect class="shape roundShape" x="22" y="15" width="76" height="50" rx="14"/><rect class="shine roundShine" x="26" y="19" width="68" height="42" rx="11"/>
+  <g id="i-system" class="icon"><circle cx="60" cy="40" r="13"/><circle class="dotfill" cx="60" cy="40" r="4"/></g>
+  <g id="i-guide" class="icon"><circle cx="60" cy="40" r="14"/><path d="M51 40h18M60 31v18"/></g>
   <g id="i-mute" class="icon"><path d="M53 29v10a7 7 0 0 0 14 0V29M49 39a11 11 0 0 0 22 0M60 50v7M54 57h12M44 25l32 30"/></g>
   <g id="i-share" class="icon"><circle cx="46" cy="40" r="4"/><circle cx="70" cy="28" r="4"/><circle cx="70" cy="52" r="4"/><path d="M50 38l16-8M50 42l16 8"/></g>
   <g id="i-options" class="icon"><path d="M45 31h30M45 40h30M45 49h30"/></g>
+  <g id="i-plus" class="icon"><path d="M48 40h24M60 28v24"/></g>
+  <g id="i-minus" class="icon"><path d="M48 40h24"/></g>
+  <g id="i-capture" class="icon"><rect x="47" y="27" width="26" height="26" rx="4"/><circle cx="60" cy="40" r="7"/></g>
 </g>
 <script><![CDATA[
-const root=document.documentElement;
-function v(n,val){if(val!=null)root.style.setProperty(n,val)}
-function set(o={}){if(o.kind)root.setAttribute('data-kind',String(o.kind).toLowerCase());if(o.state)root.setAttribute('data-state',String(o.state).toLowerCase());v('--fill',o.fill);v('--edge',o.edge);v('--icon',o.iconColor);v('--glow',o.glow);v('--error',o.errorColor);if(o.scale!=null)v('--scale',o.scale);return get()}
-function get(){const s=getComputedStyle(root);return{kind:root.dataset.kind,state:root.dataset.state,fill:s.getPropertyValue('--fill').trim(),edge:s.getPropertyValue('--edge').trim(),iconColor:s.getPropertyValue('--icon').trim()}}
+const root=document.documentElement;function v(n,val){if(val!=null)root.style.setProperty(n,val)}
+function set(o={}){if(o.kind)root.dataset.kind=String(o.kind).toLowerCase();if(o.shape)root.dataset.shape=String(o.shape).toLowerCase();if(o.state)root.dataset.state=String(o.state).toLowerCase();v('--fill',o.fill);v('--edge',o.edge);v('--icon',o.iconColor);v('--glow',o.glow);v('--error',o.errorColor);if(o.scale!=null)v('--scale',o.scale);return get()}
+function get(){const s=getComputedStyle(root);return{kind:root.dataset.kind,shape:root.dataset.shape,state:root.dataset.state,fill:s.getPropertyValue('--fill').trim(),edge:s.getPropertyValue('--edge').trim(),iconColor:s.getPropertyValue('--icon').trim()}}
 window.SystemButton={set,get};addEventListener('message',e=>{if(e.data&&e.data.type==='D5BT_SYSTEM_BUTTON')set(e.data)})
 ]]></script>
 </svg>
