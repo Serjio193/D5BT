@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 110" role="img" aria-label="Configurable PlayStation style touchpad" data-controller="ps5" data-state="idle" style="--pad-fill:#eef1f5;--pad-edge:#bfc6d0;--pad-shadow:#090d14;--accent:#7c8cff;--error:#ff3b30;--touch:#6ee7ff;--scale:1;">
+<defs>
+  <linearGradient id="ps5Face" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".30"/>
+    <stop offset=".42" stop-color="#fff" stop-opacity=".05"/>
+    <stop offset="1" stop-color="#000" stop-opacity=".10"/>
+  </linearGradient>
+  <linearGradient id="ps4Face" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".08"/>
+    <stop offset=".5" stop-color="#fff" stop-opacity=".015"/>
+    <stop offset="1" stop-color="#000" stop-opacity=".28"/>
+  </linearGradient>
+  <pattern id="ps4Texture" width="5" height="5" patternUnits="userSpaceOnUse">
+    <circle cx="1.6" cy="1.6" r=".65" fill="#000" opacity=".55"/>
+  </pattern>
+  <pattern id="ps5Texture" width="6" height="6" patternUnits="userSpaceOnUse">
+    <circle cx="1.5" cy="1.5" r=".45" fill="#000" opacity=".12"/>
+  </pattern>
+  <filter id="shadow" x="-25%" y="-35%" width="150%" height="180%">
+    <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="var(--pad-shadow)" flood-opacity=".55"/>
+  </filter>
+  <filter id="glow" x="-40%" y="-55%" width="180%" height="210%">
+    <feGaussianBlur stdDeviation="4" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <clipPath id="ps4Clip"><path d="M24 19 Q24 12 33 12 H187 Q196 12 196 19 V81 Q196 96 181 98 H39 Q24 96 24 81 Z"/></clipPath>
+  <clipPath id="ps5Clip"><path d="M27 18 Q30 11 40 10 H180 Q190 11 193 18 L198 78 Q199 92 184 96 H36 Q21 92 22 78 Z"/></clipPath>
+  <style>
+    #pad{transform-origin:110px 55px;transform:scale(var(--scale));transition:transform .07s ease,filter .09s ease}.ps4,.ps5{display:none}.outline{fill:var(--pad-fill);stroke:var(--pad-edge);stroke-width:3}.touch-point{display:none;fill:var(--touch);stroke:#fff;stroke-width:2;filter:url(#glow)}
+    svg[data-controller="ps4"] .ps4,svg[data-controller="ps5"] .ps5{display:block}
+    svg[data-state="pressed"] #pad{transform:scale(calc(var(--scale)*.965));filter:url(#glow)}
+    svg[data-state="pressed"] .outline{stroke:var(--accent)}
+    svg[data-state="error"] #pad{filter:url(#glow)}svg[data-state="error"] .outline{stroke:var(--error)}
+    svg[data-touch="true"] .touch-point{display:block}
+  </style>
+</defs>
+<g id="pad" filter="url(#shadow)">
+  <g class="ps4">
+    <path class="outline" d="M24 19 Q24 12 33 12 H187 Q196 12 196 19 V81 Q196 96 181 98 H39 Q24 96 24 81 Z"/>
+    <path d="M28 20 Q28 16 35 16 H185 Q192 16 192 20 V79 Q192 91 179 93 H41 Q28 91 28 79 Z" fill="url(#ps4Face)"/>
+    <rect x="24" y="12" width="172" height="86" fill="url(#ps4Texture)" clip-path="url(#ps4Clip)" opacity=".78"/>
+    <path d="M26 20 H194" stroke="#fff" stroke-opacity=".06"/>
+    <path d="M24 19 Q24 12 33 12 H187 Q196 12 196 19 V81 Q196 96 181 98 H39 Q24 96 24 81 Z" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="1.2"/>
+  </g>
+  <g class="ps5">
+    <path class="outline" d="M27 18 Q30 11 40 10 H180 Q190 11 193 18 L198 78 Q199 92 184 96 H36 Q21 92 22 78 Z"/>
+    <path d="M31 20 Q33 15 42 14 H178 Q187 15 189 20 L194 76 Q195 87 182 91 H38 Q25 87 26 76 Z" fill="url(#ps5Face)"/>
+    <rect x="22" y="10" width="176" height="86" fill="url(#ps5Texture)" clip-path="url(#ps5Clip)" opacity=".34"/>
+    <path d="M32 18 Q34 14 43 13 H177 Q186 14 188 18" fill="none" stroke="#fff" stroke-opacity=".44" stroke-width="1.4"/>
+    <path d="M27 18 Q30 11 40 10 H180 Q190 11 193 18 L198 78 Q199 92 184 96 H36 Q21 92 22 78 Z" fill="none" stroke="#000" stroke-opacity=".16" stroke-width="1.2"/>
+  </g>
+  <circle id="touchPoint" class="touch-point" cx="110" cy="55" r="6"/>
+</g>
+<script><![CDATA[
+const root=document.documentElement,point=document.getElementById('touchPoint');
+function css(n,v){if(v!=null)root.style.setProperty(n,v)}
+function preset(controller){
+  if(controller==='ps4'){css('--pad-fill','#171a20');css('--pad-edge','#444a54');css('--accent','#5f96ff')}
+  if(controller==='ps5'){css('--pad-fill','#eef1f5');css('--pad-edge','#bfc6d0');css('--accent','#7c8cff')}
+}
+function set(o={}){
+  if(o.controller){const c=String(o.controller).toLowerCase();root.dataset.controller=c;preset(c)}
+  if(o.state)root.dataset.state=String(o.state).toLowerCase();
+  css('--pad-fill',o.fill);css('--pad-edge',o.edge);css('--accent',o.accent);css('--error',o.errorColor);css('--touch',o.touchColor);if(o.scale!=null)css('--scale',o.scale);
+  if(o.touch){root.dataset.touch='true';point.setAttribute('cx',22+Math.max(0,Math.min(1,+o.touch.x||0))*176);point.setAttribute('cy',10+Math.max(0,Math.min(1,+o.touch.y||0))*86)}else if(o.touch===null||o.touch===false)root.dataset.touch='false';
+  return get()
+}
+function get(){const s=getComputedStyle(root);return{controller:root.dataset.controller,state:root.dataset.state,fill:s.getPropertyValue('--pad-fill').trim(),edge:s.getPropertyValue('--pad-edge').trim()}}
+window.Touchpad={set,get};addEventListener('message',e=>{if(e.data&&e.data.type==='D5BT_TOUCHPAD')set(e.data)});preset(root.dataset.controller);
+]]></script>
+</svg>
