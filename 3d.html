@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>D5BT — PS5 3D</title>
+<style>
+:root{--bg:#070b12;--panel:#0e1522;--line:#26344d;--text:#f5f7fb;--muted:#94a1b5}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+body{background:radial-gradient(circle at 50% -10%,#17223d 0,#0a101b 36%,#070b12 76%)}
+header{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #182238;background:#090e18}.brand{font-weight:850}.back{color:#cbd5e1;text-decoration:none;font-size:13px}
+main{max-width:1160px;margin:auto;padding:18px 12px 40px}.panel{background:linear-gradient(180deg,#101826,#0a111c);border:1px solid var(--line);border-radius:16px;padding:14px}.title{font-size:18px;font-weight:800}.sub{font-size:11px;color:var(--muted);margin-top:5px}
+.viewer{height:min(72vh,720px);min-height:440px;margin-top:14px;border-radius:14px;overflow:hidden;border:1px solid #1d2940;background:#090f19;touch-action:none}.viewer canvas{display:block;width:100%;height:100%}
+.controls{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;margin-top:14px}.colorbox{display:flex;align-items:center;gap:10px}.colorbox label{font-size:12px;color:#cbd5e1}.colorbox input{width:82px;height:42px;border:1px solid #34435e;border-radius:9px;background:#101827;padding:3px}.status{font-size:11px;color:var(--muted);text-align:right}
+.note{margin-top:10px;font-size:11px;color:#7f8ca0}
+@media(max-width:680px){.viewer{min-height:360px;height:58vh}.controls{grid-template-columns:1fr}.status{text-align:left}}
+</style>
+</head>
+<body>
+<header><div class="brand">D5BT · PS5 3D</div><a class="back" href="./">← Button Lab</a></header>
+<main><section class="panel">
+<div class="title">DualSense-style 3D model</div>
+<div class="sub">Вращение: палец/мышь · масштаб: pinch/колесо · PS-логотип удалён</div>
+<div id="viewer3d" class="viewer"></div>
+<div class="controls"><div class="colorbox"><label for="viewer3dColor">Цвет корпуса</label><input id="viewer3dColor" type="color" value="#f1f3f6"></div><div id="viewer3dStatus" class="status">Загрузка GLB…</div></div>
+<div class="note">Перекрашиваются только meshes корпуса с именем «main controler». Кнопки, стики, touchpad и триггеры остаются отдельными.</div>
+</section></main>
+<script type="module" src="assets/viewer3d.js"></script>
+</body>
+</html>
