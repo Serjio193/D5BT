@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Configurable controller face button" data-symbol="x" data-pressed="false" style="--button-fill:#171b24;--button-edge:#5b6576;--symbol-color:#ffffff;--glow-color:#735cff;--symbol-stroke:7;--button-scale:1;">
+  <defs>
+    <radialGradient id="faceShade" cx="35%" cy="25%" r="78%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".14"/>
+      <stop offset=".48" stop-color="#ffffff" stop-opacity=".02"/>
+      <stop offset="1" stop-color="#000000" stop-opacity=".28"/>
+    </radialGradient>
+    <linearGradient id="edgeShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".28"/>
+      <stop offset=".45" stop-color="#ffffff" stop-opacity=".06"/>
+      <stop offset="1" stop-color="#000000" stop-opacity=".4"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".55"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      :root{color-scheme:dark}
+      #button{transform-origin:50px 50px;transform:scale(var(--button-scale));transition:transform .06s ease,filter .06s ease}
+      .edge{fill:var(--button-edge)}
+      .face{fill:var(--button-fill)}
+      .symbol{display:none;fill:none;stroke:var(--symbol-color);stroke-width:var(--symbol-stroke);stroke-linecap:round;stroke-linejoin:round}
+      .letter{display:none;fill:var(--symbol-color);font:800 43px/1 Arial,Helvetica,sans-serif;text-anchor:middle;dominant-baseline:central}
+      svg[data-symbol="a"] #sym-a,svg[data-symbol="b"] #sym-b,svg[data-symbol="x"] #sym-x-letter,svg[data-symbol="y"] #sym-y{display:block}
+      svg[data-symbol="square"] #sym-square,svg[data-symbol="triangle"] #sym-triangle,svg[data-symbol="circle"] #sym-circle,svg[data-symbol="cross"] #sym-cross{display:block}
+      svg[data-pressed="true"] #button{transform:scale(.91);filter:url(#glow)}
+      svg[data-pressed="true"] .edge{fill:var(--glow-color)}
+    </style>
+  </defs>
+
+  <g id="button" filter="url(#shadow)">
+    <circle class="edge" cx="50" cy="50" r="43"/>
+    <circle class="face" cx="50" cy="50" r="39.5"/>
+    <circle cx="50" cy="50" r="39.5" fill="url(#faceShade)" pointer-events="none"/>
+    <circle cx="50" cy="50" r="41.5" fill="none" stroke="url(#edgeShade)" stroke-width="2" pointer-events="none"/>
+
+    <text id="sym-a" class="letter" x="50" y="52">A</text>
+    <text id="sym-b" class="letter" x="50" y="52">B</text>
+    <text id="sym-x-letter" class="letter" x="50" y="52">X</text>
+    <text id="sym-y" class="letter" x="50" y="52">Y</text>
+
+    <rect id="sym-square" class="symbol" x="34" y="34" width="32" height="32" rx="1"/>
+    <path id="sym-triangle" class="symbol" d="M50 30 L69 65 H31 Z"/>
+    <circle id="sym-circle" class="symbol" cx="50" cy="50" r="18"/>
+    <path id="sym-cross" class="symbol" d="M35 35 L65 65 M65 35 L35 65"/>
+  </g>
+
+  <script><![CDATA[
+    const root = document.documentElement;
+    const palettes = {
+      xbox: {
+        a:'#107C10', b:'#E81123', x:'#0078D7', y:'#FFB900'
+      },
+      playstationClassic: {
+        triangle:'#00A86B', circle:'#E83A4F', cross:'#2E7CF6', square:'#E95ACF'
+      },
+      playstationDualSense: {
+        triangle:'#D8DCE5', circle:'#D8DCE5', cross:'#D8DCE5', square:'#D8DCE5'
+      },
+      nintendoSwitch: {
+        a:'#F2F2F2', b:'#F2F2F2', x:'#F2F2F2', y:'#F2F2F2'
+      }
+    };
+
+    function setVar(name, value){ if(value != null) root.style.setProperty(name, value); }
+    function setButton(options={}){
+      if(options.symbol) root.setAttribute('data-symbol', String(options.symbol).toLowerCase());
+      if(options.pressed != null) root.setAttribute('data-pressed', options.pressed ? 'true' : 'false');
+      setVar('--button-fill', options.fill);
+      setVar('--button-edge', options.edge);
+      setVar('--symbol-color', options.symbolColor);
+      setVar('--glow-color', options.glow);
+      if(options.symbolStroke != null) setVar('--symbol-stroke', String(options.symbolStroke));
+      if(options.scale != null) setVar('--button-scale', String(options.scale));
+      return getButtonState();
+    }
+    function applyPalette(brand, symbol){
+      const p = palettes[brand];
+      const key = String(symbol || root.getAttribute('data-symbol')).toLowerCase();
+      if(!p || !p[key]) return false;
+      root.setAttribute('data-symbol', key);
+      root.style.setProperty('--symbol-color', p[key]);
+      return true;
+    }
+    function getButtonState(){
+      const s=getComputedStyle(root);
+      return {
+        symbol:root.getAttribute('data-symbol'),
+        pressed:root.getAttribute('data-pressed')==='true',
+        fill:s.getPropertyValue('--button-fill').trim(),
+        edge:s.getPropertyValue('--button-edge').trim(),
+        symbolColor:s.getPropertyValue('--symbol-color').trim(),
+        glow:s.getPropertyValue('--glow-color').trim()
+      };
+    }
+    window.FaceButton = { set:setButton, palette:applyPalette, get:getButtonState, palettes };
+    addEventListener('message',e=>{
+      if(!e.data || e.data.type!=='D5BT_FACE_BUTTON') return;
+      if(e.data.palette) applyPalette(e.data.palette,e.data.symbol);
+      setButton(e.data);
+    });
+  ]]></script>
+</svg>
