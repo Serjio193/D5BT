@@ -23,27 +23,20 @@ const fill=new THREE.DirectionalLight(0xb8c9ff,1.15);fill.position.set(-4,1,3);s
 const rim=new THREE.DirectionalLight(0xffffff,1.25);rim.position.set(0,3,-5);scene.add(rim);
 
 const controls=new OrbitControls(camera,renderer.domElement);
-controls.enableDamping=true;
-controls.dampingFactor=.06;
-controls.enablePan=false;
-controls.minDistance=1.25;
-controls.maxDistance=7;
+controls.enableDamping=true;controls.dampingFactor=.06;controls.enablePan=false;
 controls.target.set(0,0,0);
 
 let root=null;
 const bodyMeshes=[];
 const loader=new GLTFLoader();
-loader.load('assets/ps5_controller_no_logo.glb',gltf=>{
+loader.load('assets/ps5_controller_no_logo.glb?v=20260827-1814',gltf=>{
   root=gltf.scene;
   root.traverse(o=>{
     if(!o.isMesh)return;
-    o.castShadow=false;
-    o.receiveShadow=false;
+    o.castShadow=false;o.receiveShadow=false;
     if((o.name||'').toLowerCase().startsWith('main controler'))bodyMeshes.push(o);
   });
 
-  // GLB arrives in modelling coordinates. Put the controller upright,
-  // front-facing, then center and fit the camera from the transformed bounds.
   root.rotation.set(-Math.PI/2,0,Math.PI);
   scene.add(root);
   root.updateMatrixWorld(true);
@@ -53,29 +46,28 @@ loader.load('assets/ps5_controller_no_logo.glb',gltf=>{
   root.position.sub(center);
   root.updateMatrixWorld(true);
 
-  box=new THREE.Box3().setFromObject(root);
+  box.setFromObject(root);
   const size=box.getSize(new THREE.Vector3());
-  const max=Math.max(size.x,size.y,size.z);
-  const scale=2.5/max;
+  const scale=2.65/Math.max(size.x,size.y,size.z);
   root.scale.setScalar(scale);
   root.updateMatrixWorld(true);
 
   box.setFromObject(root);
   const fitted=box.getSize(new THREE.Vector3());
-  const fov=THREE.MathUtils.degToRad(camera.fov);
-  const distance=Math.max(fitted.x/(2*Math.tan(fov/2)),fitted.y/(2*Math.tan(fov/2)))*1.22;
+  const vfov=THREE.MathUtils.degToRad(camera.fov);
+  const hfov=2*Math.atan(Math.tan(vfov/2)*Math.max(camera.aspect,.7));
+  const distX=fitted.x/(2*Math.tan(hfov/2));
+  const distY=fitted.y/(2*Math.tan(vfov/2));
+  const distance=Math.max(distX,distY)*1.18;
   camera.position.set(0,0,distance);
   camera.lookAt(0,0,0);
-  controls.target.set(0,0,0);
-  controls.minDistance=distance*.55;
+  controls.minDistance=distance*.62;
   controls.maxDistance=distance*3;
   controls.update();
 
-  if(status)status.textContent=`Загружено · корпус: ${bodyMeshes.length} meshes`;
+  if(status)status.textContent=`3D v2 · загружено · корпус: ${bodyMeshes.length} meshes`;
   applyBodyColor(color?.value||'#f1f3f6');
-},e=>{
-  if(status&&e.total)status.textContent=`Загрузка ${Math.round(e.loaded/e.total*100)}%`;
-},err=>{console.error(err);if(status)status.textContent='Ошибка загрузки GLB';});
+},e=>{if(status&&e.total)status.textContent=`Загрузка ${Math.round(e.loaded/e.total*100)}%`;},err=>{console.error(err);if(status)status.textContent='Ошибка загрузки GLB';});
 
 function applyBodyColor(hex){
   const c=new THREE.Color(hex);
@@ -88,12 +80,6 @@ function applyBodyColor(hex){
 if(color)color.addEventListener('input',()=>applyBodyColor(color.value));
 window.D5BT_3D={setBodyColor:applyBodyColor,get model(){return root}};
 
-function resize(){
-  const w=host.clientWidth,h=Math.max(320,host.clientHeight);
-  renderer.setSize(w,h,false);
-  camera.aspect=w/h;
-  camera.updateProjectionMatrix();
-}
-new ResizeObserver(resize).observe(host);
-resize();
+function resize(){const w=host.clientWidth,h=Math.max(320,host.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(host);resize();
 renderer.setAnimationLoop(()=>{controls.update();renderer.render(scene,camera)});
