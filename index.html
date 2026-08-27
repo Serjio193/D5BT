@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>D5BT — Face Button Lab</title>
+<title>D5BT — Button Lab</title>
 <style>
 :root{--bg:#070b12;--panel:#0e1522;--line:#26344d;--text:#f5f7fb;--muted:#909db1;--accent:#705cff}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,#17223d 0,#0a101b 34%,#070b12 72%);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}button,input{font:inherit}
@@ -12,62 +12,49 @@ main{max-width:1050px;margin:0 auto;padding:28px 16px 60px}.hero{text-align:cent
 .controls{display:grid;grid-template-columns:1fr 260px;gap:18px;margin-bottom:18px}.section-title{font-size:12px;font-weight:850;letter-spacing:.8px;text-transform:uppercase;color:#dbe3ef;margin:0 0 12px}.brands{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.brand-btn,.model-btn{min-height:48px;border-radius:11px;border:1px solid #2b3953;background:#111a2a;color:#c7d1df;font-weight:750;cursor:pointer}.brand-btn.active,.model-btn.active{border-color:#8c7cff;background:#211b47;color:#fff;box-shadow:0 0 0 3px rgba(112,92,255,.15)}
 .models{display:none;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.models.show{display:grid}.model-btn{min-height:42px}.color-row{display:grid;grid-template-columns:1fr auto;gap:9px}.color-row input{width:100%;height:48px;border:1px solid #2c3b55;background:#111827;border-radius:11px;padding:4px}.apply{border:0;border-radius:11px;padding:0 15px;background:linear-gradient(135deg,#745fff,#503deb);color:#fff;font-weight:800;cursor:pointer}
 .lab{margin-top:18px}.button-stage{min-height:430px;display:grid;place-items:center;padding:30px;background:radial-gradient(circle at 50% 45%,rgba(112,92,255,.1),transparent 46%);border:1px solid #1d2940;border-radius:14px}.diamond{position:relative;width:min(480px,90vw);aspect-ratio:1}.slot{position:absolute;width:31%;aspect-ratio:1;border:0;background:transparent;padding:0;cursor:pointer;border-radius:50%;touch-action:manipulation}.slot object{width:100%;height:100%;display:block;pointer-events:none}.slot.top{left:34.5%;top:0}.slot.right{right:0;top:34.5%}.slot.bottom{left:34.5%;bottom:0}.slot.left{left:0;top:34.5%}.slot:focus-visible{outline:3px solid #a99cff;outline-offset:5px}.slot-label{position:absolute;font-size:11px;font-weight:800;color:#aab5c7;background:#0b1320;border:1px solid #24324b;border-radius:8px;padding:5px 7px;pointer-events:none}.top .slot-label{left:50%;transform:translateX(-50%);top:-28px}.right .slot-label{right:-62px;top:50%;transform:translateY(-50%)}.bottom .slot-label{left:50%;transform:translateX(-50%);bottom:-28px}.left .slot-label{left:-62px;top:50%;transform:translateY(-50%)}
+.system-lab{margin-top:18px}.system-stage{padding:22px;background:radial-gradient(circle at 50% 45%,rgba(112,92,255,.08),transparent 55%);border:1px solid #1d2940;border-radius:14px}.system-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.sys{border:1px solid #22304a;background:#0b1320;border-radius:13px;padding:12px 8px;cursor:pointer;min-width:0}.sys object{width:100%;height:74px;display:block;pointer-events:none}.sys-name{display:block;text-align:center;margin-top:6px;font-size:12px;font-weight:800;color:#e6ebf3}.sys-state{display:block;text-align:center;margin-top:3px;font-size:10px;color:#98a6ba}
 .statebar{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.state{padding:12px;border-radius:10px;background:#0b1320;border:1px solid #22304a;text-align:center;font-size:12px;color:#9eabbe}.state strong{display:block;color:#fff;font-size:13px;margin-bottom:2px}.state.pressed{border-color:#765fff}.state.error{border-color:#7b2832;color:#ff8f9d}.info{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.info p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:#b9c4d4;background:#080e18;border:1px solid #202c44;border-radius:10px;padding:12px;white-space:pre-wrap;overflow:auto}
-@media(max-width:760px){header{height:58px;padding:0 12px}.brand{font-size:17px}.tag{display:none}main{padding:18px 9px 40px}.controls,.info{grid-template-columns:1fr}.brands{grid-template-columns:1fr 1fr}.panel{padding:13px}.button-stage{min-height:340px;padding:22px}.diamond{width:min(340px,84vw)}.slot{width:30%}.slot.top{left:35%}.slot.bottom{left:35%}.slot.right{top:35%}.slot.left{top:35%}.right .slot-label,.left .slot-label{display:none}.statebar{grid-template-columns:1fr}}
+@media(max-width:760px){header{height:58px;padding:0 12px}.brand{font-size:17px}.tag{display:none}main{padding:18px 9px 40px}.controls,.info{grid-template-columns:1fr}.brands{grid-template-columns:1fr 1fr}.panel{padding:13px}.button-stage{min-height:340px;padding:22px}.diamond{width:min(340px,84vw)}.slot{width:30%}.slot.top{left:35%}.slot.bottom{left:35%}.slot.right{top:35%}.slot.left{top:35%}.right .slot-label,.left .slot-label{display:none}.statebar{grid-template-columns:1fr}.system-grid{grid-template-columns:repeat(2,1fr)}.sys:last-child{grid-column:1/-1;max-width:50%;justify-self:center;width:100%}}
 </style>
 </head>
 <body>
-<header><div class="brand">D5BT <span class="tag">FACE BUTTON LAB</span></div><div class="status">1 SVG · разные параметры</div></header>
+<header><div class="brand">D5BT <span class="tag">BUTTON LAB</span></div><div class="status">модульные SVG</div></header>
 <main>
-<section class="hero"><h1>Тест универсальной кнопки</h1><p>Один SVG используется четыре раза. PlayStation теперь разделён на PS4 и PS5. Клик по любой кнопке: <b>idle → pressed → error</b>.</p></section>
+<section class="hero"><h1>Тест кнопок контроллера</h1><p>Правые 4 кнопки зафиксированы как отдельный универсальный ресурс. Ниже добавлен второй SVG-ресурс для системных кнопок: System / Guide / Mute / Share / Options.</p></section>
 <section class="panel controls">
-<div>
-<div class="section-title">Фирма / раскладка</div>
-<div class="brands" id="brands">
-<button class="brand-btn active" type="button" data-brand="sony">PlayStation</button>
-<button class="brand-btn" type="button" data-brand="xbox">Xbox</button>
-<button class="brand-btn" type="button" data-brand="nintendo">Nintendo</button>
-<button class="brand-btn" type="button" data-brand="custom">Custom</button>
-</div>
-<div class="models show" id="psModels">
-<button class="model-btn active" type="button" data-model="ps4">PS4 · DualShock 4</button>
-<button class="model-btn" type="button" data-model="ps5">PS5 · DualSense</button>
-</div>
-</div>
+<div><div class="section-title">Фирма / раскладка</div><div class="brands" id="brands">
+<button class="brand-btn active" type="button" data-brand="sony">PlayStation</button><button class="brand-btn" type="button" data-brand="xbox">Xbox</button><button class="brand-btn" type="button" data-brand="nintendo">Nintendo</button><button class="brand-btn" type="button" data-brand="custom">Custom</button></div>
+<div class="models show" id="psModels"><button class="model-btn active" type="button" data-model="ps4">PS4 · DualShock 4</button><button class="model-btn" type="button" data-model="ps5">PS5 · DualSense</button></div></div>
 <div><div class="section-title">Цвет корпуса кнопок</div><div class="color-row"><input id="bodyColor" type="color" value="#24272e" aria-label="Цвет корпуса кнопок"><button id="applyColor" class="apply" type="button">Применить</button></div></div>
 </section>
-<section class="panel lab">
-<div class="section-title">Нажимай сами кнопки</div>
-<div class="button-stage"><div class="diamond" id="diamond">
-<button class="slot top" type="button" data-index="0" aria-label="Верхняя кнопка"><object data="assets/face-button.svg" type="image/svg+xml"></object><span class="slot-label">idle</span></button>
-<button class="slot right" type="button" data-index="1" aria-label="Правая кнопка"><object data="assets/face-button.svg" type="image/svg+xml"></object><span class="slot-label">idle</span></button>
-<button class="slot bottom" type="button" data-index="2" aria-label="Нижняя кнопка"><object data="assets/face-button.svg" type="image/svg+xml"></object><span class="slot-label">idle</span></button>
-<button class="slot left" type="button" data-index="3" aria-label="Левая кнопка"><object data="assets/face-button.svg" type="image/svg+xml"></object><span class="slot-label">idle</span></button>
+<section class="panel lab"><div class="section-title">Правые 4 кнопки</div><div class="button-stage"><div class="diamond">
+<button class="slot top" type="button" data-index="0"><object data="assets/face-button.svg" type="image/svg+xml"></object><span class="slot-label">idle</span></button>
+<button class="slot right" type="button" data-index="1"><object data="assets/face-button.svg" type="image/svg+xml"></object><span class="slot-label">idle</span></button>
+<button class="slot bottom" type="button" data-index="2"><object data="assets/face-button.svg" type="image/svg+xml"></object><span class="slot-label">idle</span></button>
+<button class="slot left" type="button" data-index="3"><object data="assets/face-button.svg" type="image/svg+xml"></object><span class="slot-label">idle</span></button>
+</div></div></section>
+<section class="panel system-lab"><div class="section-title">Системные кнопки — нажимай сами</div><div class="system-stage"><div class="system-grid" id="systemGrid">
+<button class="sys" type="button" data-kind="system"><object data="assets/system-button.svg" type="image/svg+xml"></object><span class="sys-name">PS / System</span><span class="sys-state">idle</span></button>
+<button class="sys" type="button" data-kind="guide"><object data="assets/system-button.svg" type="image/svg+xml"></object><span class="sys-name">Xbox Guide</span><span class="sys-state">idle</span></button>
+<button class="sys" type="button" data-kind="mute"><object data="assets/system-button.svg" type="image/svg+xml"></object><span class="sys-name">Mute</span><span class="sys-state">idle</span></button>
+<button class="sys" type="button" data-kind="share"><object data="assets/system-button.svg" type="image/svg+xml"></object><span class="sys-name">Share</span><span class="sys-state">idle</span></button>
+<button class="sys" type="button" data-kind="options"><object data="assets/system-button.svg" type="image/svg+xml"></object><span class="sys-name">Options</span><span class="sys-state">idle</span></button>
 </div></div>
-<div class="statebar"><div class="state"><strong>idle</strong>Обычное состояние</div><div class="state pressed"><strong>pressed</strong>Утоплена + подсветка</div><div class="state error"><strong>error</strong>Красный сигнал ошибки</div></div>
-</section>
-<section class="info"><div class="panel"><div class="section-title">PlayStation</div><p><b>PS4:</b> тёмные кнопки, △ зелёный, ○ красный, ✕ синий, □ розовый. <b>PS5:</b> светлые кнопки с монохромными тёмными символами. Ручной цвет корпуса не меняет цвет символов.</p></div><div class="panel"><div class="section-title">Текущий конфиг</div><div id="config" class="code"></div></div></section>
+<div class="statebar"><div class="state"><strong>idle</strong>Обычное состояние</div><div class="state pressed"><strong>pressed</strong>Утоплена + подсветка</div><div class="state error"><strong>error</strong>Красный сигнал ошибки</div></div></section>
+<section class="info"><div class="panel"><div class="section-title">Система ресурсов</div><p><b>face-button.svg</b> — правые 4 кнопки. <b>system-button.svg</b> — PS/System, Xbox Guide, Mute, Share и Options. Оба ресурса принимают цвет и состояние независимо.</p></div><div class="panel"><div class="section-title">Текущий конфиг</div><div id="config" class="code"></div></div></section>
 </main>
 <script>
 (()=>{
-const presets={
- ps4:{name:'PlayStation 4 / DualShock 4',symbols:['triangle','circle','cross','square'],fills:['#24272e','#24272e','#24272e','#24272e'],edge:'#555b66',symbolColors:['#49d09d','#e9576b','#5f96ff','#e98adf'],glow:'#7c8cff'},
- ps5:{name:'PlayStation 5 / DualSense',symbols:['triangle','circle','cross','square'],fills:['#eef1f5','#eef1f5','#eef1f5','#eef1f5'],edge:'#c7ccd4',symbolColors:['#2f343c','#2f343c','#2f343c','#2f343c'],glow:'#7c8cff'},
- xbox:{name:'Xbox',symbols:['y','b','a','x'],fills:['#ffb900','#e81123','#107c10','#0078d7'],edge:'#1f252e',symbolColors:['#fff','#fff','#fff','#fff'],glow:'#fff'},
- nintendo:{name:'Nintendo',symbols:['x','a','b','y'],fills:['#262a31','#262a31','#262a31','#262a31'],edge:'#555d69',symbolColors:['#fff','#fff','#fff','#fff'],glow:'#e60012'},
- custom:{name:'Custom',symbols:['y','b','a','x'],fills:['#735cff','#735cff','#735cff','#735cff'],edge:'#a99cff',symbolColors:['#fff','#fff','#fff','#fff'],glow:'#a99cff'}
-};
-const states=['idle','pressed','error'];let brand='sony',psModel='ps4',currentStates=['idle','idle','idle','idle'],customFill=null;
-const slots=[...document.querySelectorAll('.slot')],config=document.getElementById('config'),bodyColor=document.getElementById('bodyColor'),psModels=document.getElementById('psModels');
-function presetKey(){return brand==='sony'?psModel:brand}function p(){return presets[presetKey()]}
-function send(i,data){const obj=slots[i].querySelector('object');if(obj.contentWindow)obj.contentWindow.postMessage({type:'D5BT_FACE_BUTTON',...data},'*')}
-function applyOne(i){const x=p(),fill=customFill||x.fills[i];send(i,{symbol:x.symbols[i],fill,edge:x.edge,symbolColor:x.symbolColors[i],glow:x.glow,state:currentStates[i],errorColor:'#ff3b30'});slots[i].querySelector('.slot-label').textContent=currentStates[i]}
-function applyAll(){for(let i=0;i<4;i++)applyOne(i);renderConfig()}
-function renderConfig(){const x=p();config.textContent=JSON.stringify({controller:x.name,symbols:x.symbols,buttonColor:customFill||x.fills,symbolColors:x.symbolColors,state:currentStates},null,2)}
-slots.forEach((slot,i)=>{slot.addEventListener('click',()=>{currentStates[i]=states[(states.indexOf(currentStates[i])+1)%states.length];applyOne(i);renderConfig()});slot.querySelector('object').addEventListener('load',()=>applyOne(i))});
-document.getElementById('brands').addEventListener('click',e=>{const btn=e.target.closest('[data-brand]');if(!btn)return;brand=btn.dataset.brand;customFill=null;currentStates=['idle','idle','idle','idle'];document.querySelectorAll('.brand-btn').forEach(b=>b.classList.toggle('active',b===btn));psModels.classList.toggle('show',brand==='sony');bodyColor.value=p().fills[0];applyAll()});
-psModels.addEventListener('click',e=>{const btn=e.target.closest('[data-model]');if(!btn)return;psModel=btn.dataset.model;customFill=null;currentStates=['idle','idle','idle','idle'];document.querySelectorAll('.model-btn').forEach(b=>b.classList.toggle('active',b===btn));bodyColor.value=p().fills[0];applyAll()});
-document.getElementById('applyColor').addEventListener('click',()=>{customFill=bodyColor.value;applyAll()});bodyColor.addEventListener('input',()=>{customFill=bodyColor.value;applyAll()});renderConfig();
+const presets={ps4:{name:'PlayStation 4',symbols:['triangle','circle','cross','square'],fills:['#24272e','#24272e','#24272e','#24272e'],edge:'#555b66',symbolColors:['#49d09d','#e9576b','#5f96ff','#e98adf'],glow:'#7c8cff',sysFill:'#252932',sysEdge:'#5b6472',sysIcon:'#eef1f5'},ps5:{name:'PlayStation 5',symbols:['triangle','circle','cross','square'],fills:['#eef1f5','#eef1f5','#eef1f5','#eef1f5'],edge:'#c7ccd4',symbolColors:['#2f343c','#2f343c','#2f343c','#2f343c'],glow:'#7c8cff',sysFill:'#eef1f5',sysEdge:'#c7ccd4',sysIcon:'#2f343c'},xbox:{name:'Xbox',symbols:['y','b','a','x'],fills:['#ffb900','#e81123','#107c10','#0078d7'],edge:'#1f252e',symbolColors:['#fff','#fff','#fff','#fff'],glow:'#fff',sysFill:'#20252d',sysEdge:'#667180',sysIcon:'#f5f7fb'},nintendo:{name:'Nintendo',symbols:['x','a','b','y'],fills:['#262a31','#262a31','#262a31','#262a31'],edge:'#555d69',symbolColors:['#fff','#fff','#fff','#fff'],glow:'#e60012',sysFill:'#262a31',sysEdge:'#626b77',sysIcon:'#fff'},custom:{name:'Custom',symbols:['y','b','a','x'],fills:['#735cff','#735cff','#735cff','#735cff'],edge:'#a99cff',symbolColors:['#fff','#fff','#fff','#fff'],glow:'#a99cff',sysFill:'#735cff',sysEdge:'#a99cff',sysIcon:'#fff'}};
+const states=['idle','pressed','error'];let brand='sony',psModel='ps4',faceStates=['idle','idle','idle','idle'],customFill=null;const sysStates={system:'idle',guide:'idle',mute:'idle',share:'idle',options:'idle'};
+const slots=[...document.querySelectorAll('.slot')],sysButtons=[...document.querySelectorAll('.sys')],config=document.getElementById('config'),bodyColor=document.getElementById('bodyColor'),psModels=document.getElementById('psModels');function key(){return brand==='sony'?psModel:brand}function p(){return presets[key()]}
+function faceSend(i,data){const o=slots[i].querySelector('object');if(o.contentWindow)o.contentWindow.postMessage({type:'D5BT_FACE_BUTTON',...data},'*')}function sysSend(btn,data){const o=btn.querySelector('object');if(o.contentWindow)o.contentWindow.postMessage({type:'D5BT_SYSTEM_BUTTON',...data},'*')}
+function applyFace(i){const x=p();faceSend(i,{symbol:x.symbols[i],fill:customFill||x.fills[i],edge:x.edge,symbolColor:x.symbolColors[i],glow:x.glow,state:faceStates[i],errorColor:'#ff3b30'});slots[i].querySelector('.slot-label').textContent=faceStates[i]}
+function applySys(btn){const x=p(),kind=btn.dataset.kind,state=sysStates[kind];sysSend(btn,{kind,state,fill:customFill||x.sysFill,edge:x.sysEdge,iconColor:x.sysIcon,glow:x.glow,errorColor:'#ff3b30'});btn.querySelector('.sys-state').textContent=state}
+function applyAll(){slots.forEach((_,i)=>applyFace(i));sysButtons.forEach(applySys);render()}
+function render(){const x=p();config.textContent=JSON.stringify({controller:x.name,face:{symbols:x.symbols,state:faceStates},system:{kinds:Object.keys(sysStates),state:sysStates},buttonColor:customFill||'preset'},null,2)}
+slots.forEach((s,i)=>{s.addEventListener('click',()=>{faceStates[i]=states[(states.indexOf(faceStates[i])+1)%3];applyFace(i);render()});s.querySelector('object').addEventListener('load',()=>applyFace(i))});sysButtons.forEach(b=>{b.addEventListener('click',()=>{const k=b.dataset.kind;sysStates[k]=states[(states.indexOf(sysStates[k])+1)%3];applySys(b);render()});b.querySelector('object').addEventListener('load',()=>applySys(b))});
+document.getElementById('brands').addEventListener('click',e=>{const b=e.target.closest('[data-brand]');if(!b)return;brand=b.dataset.brand;customFill=null;faceStates.fill('idle');Object.keys(sysStates).forEach(k=>sysStates[k]='idle');document.querySelectorAll('.brand-btn').forEach(x=>x.classList.toggle('active',x===b));psModels.classList.toggle('show',brand==='sony');bodyColor.value=p().fills[0];applyAll()});psModels.addEventListener('click',e=>{const b=e.target.closest('[data-model]');if(!b)return;psModel=b.dataset.model;customFill=null;faceStates.fill('idle');Object.keys(sysStates).forEach(k=>sysStates[k]='idle');document.querySelectorAll('.model-btn').forEach(x=>x.classList.toggle('active',x===b));bodyColor.value=p().fills[0];applyAll()});document.getElementById('applyColor').addEventListener('click',()=>{customFill=bodyColor.value;applyAll()});bodyColor.addEventListener('input',()=>{customFill=bodyColor.value;applyAll()});render();
 })();
 </script>
 </body>
